@@ -2,7 +2,6 @@ package basicjavatest;
 
 import java.util.Scanner;
 
-import com.sun.jna.platform.win32.WinUser.KBDLLHOOKSTRUCT;
 
 /**
  * @author ’≈¥Û“Ø
