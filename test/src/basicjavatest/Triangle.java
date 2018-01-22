@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class Triangle {
 	public static void printInvertedTriangle(int row) {
+		System.out.println("你想要的倒三角形为：");
 		for(int i =0; i< row; i++) {
 			for(int j = 0; j< i; j++) {
 				System.out.print(" ");
@@ -23,6 +24,7 @@ public class Triangle {
 	}
 
 	public static void printTriangle(int row) {
+		System.out.println("你想要的三角形为：");
 		for (int i = 0; i < row; i++) {
 			for (int j = row - 1; j > i; j--) {
 				System.out.print(" ");
