@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import common.InputUtil;
+
 /**
  * @author 张大爷
  * @time 2018年1月26日 下午4:35:41
@@ -58,7 +60,6 @@ public class ACMOnline {
 			System.out.println("");
 
 		}
-
 		scanner.close();
 		scannerString.close();
 
@@ -124,33 +125,32 @@ public class ACMOnline {
 	 */
 	public static void primeNumber() {
 		System.out.print("请输入（0<N<1000）的数，以输入任意字符结束：");
-		Scanner scanner = new Scanner(System.in);
-		List<Integer> elements = new LinkedList<Integer>();
-		while (scanner.hasNextInt()) {
-			int element = scanner.nextInt();
-			elements.add(element);
+		int intArray[] = InputUtil.getIntArray();
+		int intArraySum = 0;
+		for (int i = 0; i < intArray.length; i++) {// 求出数组中所有的数字的和
+			intArraySum += intArray[i];
 		}
-		Integer[] IntegerArray = (Integer[]) elements.toArray(new Integer[0]);
-		int intArray[] = new int[IntegerArray.length];
-		for (int i = 0; i < IntegerArray.length; i++) {
-			intArray[i] = IntegerArray[i].intValue();
-		}
-		scanner.close();
-		for (int i = 0; i < intArray.length - 1; i++) {
-			for (int j = 1; j <= intArray[i]; j++) {
-				if(intArray[i]%j==0) {
-					
-				}
-
+		int notPrime = 0;
+		for (int i = 0; i < intArray.length; i++) {
+			if (intArray[i] == 2) {// 如果数字本身就是2，不适合循环条件j = intArray[i] - 1; j > 1
+				notPrime += intArray[i];
 			}
-
+			for (int j = intArray[i] - 1; j > 1; j--) {// 不能对1和本身求余数
+				if (intArray[i] % j == 0) {
+					notPrime += intArray[i];// 求出所有的非素数的和
+					break;// 只要有一个j能除尽，就证明intArray[i]不是素数，跳出该循环
+				}
+			}
 		}
-
+		System.out.println("所有数的和为：" + intArraySum);
+		System.out.println("所有非素数的和为：" + notPrime);
+		System.out.println("所有素数的和为：" + (intArraySum - notPrime));
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// System.out.println(Fibonacci(10));
+		//primeNumber();
 
 	}
 

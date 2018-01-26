@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import common.InputUtil;
+
 /**
  * @author 张大爷
  * @time 2018年1月23日 上午10:52:10
@@ -26,6 +28,7 @@ public class MySort {
 		for (int i = 0; i < IntegerArray.length; i++) {
 			intArray[i] = IntegerArray[i].intValue();
 		}
+
 		System.out.print("你输入的数组为：");
 		printArray(intArray);
 		System.out.println("请选择你要的排序方式：");
@@ -44,8 +47,8 @@ public class MySort {
 		} else {
 			System.out.println("你输入了个寂寞，请重新输入");
 		}
-		scanner.close();
 		sortScanner.close();
+		scanner.close();
 	}
 
 	// 数组的两个值交换位置
