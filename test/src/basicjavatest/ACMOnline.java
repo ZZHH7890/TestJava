@@ -1,7 +1,5 @@
 package basicjavatest;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 import common.InputUtil;
@@ -121,9 +119,9 @@ public class ACMOnline {
 	 * 素数求和问题
 	 * 
 	 * 现在给你N个数（0<N<1000），现在要求你写出一个程序，找出这N个数中的所有素数，并求和。 质数（prime
-	 * number）又称素数，有无限个。质数定义为在大于1的自然数中，除了1和它本身以外不再有其他因数。
+	 * number）又称素数，有无限个。质数定义为在大于1的自然数中，除了1和它本身以外不再有其他因数。 注意2其实也是素数，2是偶数
 	 */
-	public static void primeNumber() {
+	public static void sumOfPrimeNumber() {
 		System.out.print("请输入（0<N<1000）的数，以输入任意字符结束：");
 		int intArray[] = InputUtil.getIntArray();
 		int intArraySum = 0;
@@ -132,9 +130,6 @@ public class ACMOnline {
 		}
 		int notPrime = 0;
 		for (int i = 0; i < intArray.length; i++) {
-			if (intArray[i] == 2) {// 如果数字本身就是2，不适合循环条件j = intArray[i] - 1; j > 1
-				notPrime += intArray[i];
-			}
 			for (int j = intArray[i] - 1; j > 1; j--) {// 不能对1和本身求余数
 				if (intArray[i] % j == 0) {
 					notPrime += intArray[i];// 求出所有的非素数的和
@@ -147,10 +142,76 @@ public class ACMOnline {
 		System.out.println("所有素数的和为：" + (intArraySum - notPrime));
 	}
 
+	/**
+	 * 素数距离问题
+	 * 
+	 * 现在给出你一些数，要求你写出一个程序，输出这些整数相邻最近的素数， 并输出其相距长度,如果左右有等距离长度素数，则输出左侧的值及相应距离。
+	 * 如果输入的整数本身就是素数，则输出该素数本身，距离输出0
+	 *
+	 **/
+	public static void distanceOfprimeNumber() {
+		System.out.print("请输入（0<N<100000）的数，以输入任意字符结束：");
+		Scanner scanner = new Scanner(System.in);
+		int num = 0;
+		if (scanner.hasNextInt()) {
+			num = scanner.nextInt();
+		}
+		scanner.close();
+		int Rnum = 0;
+		int RDistance = 0;
+		int Lnum = 0;
+		int LDistance = 0;
+		if (num == 1) {
+			System.out.println("向右最近的素数是： " + (num + 1) + " 距离为：" + 1);
+		} else {
+			int flag = 0;
+			for (int i = 0; i < 10; i++) {
+				if (flag != 0) {// flag标志位重置为0，用于判断是否为素数
+					flag = 0;
+				}
+				for (int j = num + i - 1; j > 1; j--) {// 判断num是否为素数，不是，则标志位置1，退出内循环
+					if ((num + i) % j == 0) {
+						flag = 1;
+						break;
+					}
+				}
+				if (flag == 0) {// 判断标志位，是0则输出素数，并且退出循环
+					Rnum = num + i;
+					RDistance = i;
+					System.out.println("向右最近的素数是： " + Rnum + " 距离为：" + RDistance);
+					break;
+				}
+			}
+
+			for (int i = 0; i < 10; i++) {
+				if (flag != 0) {// flag标志位重置为0，用于判断是否为素数
+					flag = 0;
+				}
+				for (int j = num - i - 1; j > 1; j--) {// 判断num是否为素数，不是，则标志位置1，退出内循环
+					if ((num - i) % j == 0) {
+						flag = 1;
+						break;
+					}
+				}
+				if (flag == 0) {// 判断标志位，是0则输出素数，并且退出循环
+					Lnum = num - i;
+					LDistance = i;
+					System.out.println("向左最近的素数是： " + Lnum + " 距离为：" + LDistance);
+					break;
+				}
+			}
+		}
+		if (RDistance == LDistance) {
+			System.out.println("由于左右两边素数距离相等，所以输出左边素数 ");
+			System.out.println("向左最近的素数是： " + Lnum + " 距离为：" + LDistance);
+		}
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// System.out.println(Fibonacci(10));
-		//primeNumber();
+		// sumOfPrimeNumber();
+		distanceOfprimeNumber();
 
 	}
 
