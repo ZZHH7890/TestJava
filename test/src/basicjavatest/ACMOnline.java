@@ -207,11 +207,106 @@ public class ACMOnline {
 		}
 	}
 
+	/**
+	 * A Famous Music Composer
+	 * 
+	 * Musical keys
+	 * 
+	 * A A#=Bb B C C#=Db D D#=Eb E F F#=Gb G G#=Ab
+	 * 
+	 * Alternate names
+	 *
+	 * Ab minor A# major A# minor C# major Db minor
+	 * 
+	 * D# major D# minor Gb major Gb minor G# major
+	 *
+	 * Input:
+	 *
+	 * Ab minor
+	 *
+	 * D# major
+	 *
+	 * G minor
+	 *
+	 * Output
+	 *
+	 * Case 1: G# minor
+	 *
+	 * Case 2: Eb major
+	 *
+	 * Case 3: UNIQUE
+	 *
+	 *
+	 **/
+	public static void FamousMusicComposer() {
+		String alternateNames[] = { "Ab minor", "A# major", "A# minor", "C# major", "Db minor", "D# major", "D# minor",
+				"Gb major", "Gb minor", "G# major" };
+		System.out.println("Please input the \"note tonality\": ");
+		Scanner scanner = new Scanner(System.in);
+		String noteTonality = null;
+		String Case = null;
+		if (scanner.hasNextLine()) {
+			noteTonality = scanner.nextLine();
+		}
+		if (noteTonality.length() < 8) {
+			System.out.println("Case : UNIQUE");
+		} else {
+			for (String i : alternateNames) {
+				String subString = null;
+				if (noteTonality.equalsIgnoreCase(i)) {
+					subString = noteTonality.substring(0, 2);
+					System.out.println(subString);
+					switch (subString) {
+					case "A#":
+						Case = noteTonality.replace("A#", "Bb");
+						break;
+					case "Bb":
+						Case = noteTonality.replace("Bb", "A#");
+						break;
+					case "C#":
+						Case = noteTonality.replace("C#", "Db");
+						break;
+					case "Db":
+						Case = noteTonality.replace("Db", "C#");
+						break;
+					case "D#":
+						Case = noteTonality.replace("D#", "Eb");
+						break;
+					case "Eb":
+						Case = noteTonality.replace("Eb", "D#");
+						break;
+					case "F#":
+						Case = noteTonality.replace("F#", "Gb");
+						break;
+					case "Gb":
+						Case = noteTonality.replace("Gb", "F#");
+						break;
+					case "G#":
+						Case = noteTonality.replace("G#", "Ab");
+						break;
+					case "Ab":
+						Case = noteTonality.replace("Ab", "G#");
+						break;
+					default:
+						break;
+					}
+					System.out.println("Case : " + Case);
+					break;
+				}else {
+					System.out.println("Case : UNIQUE");
+					break;
+				}
+			}
+		}
+		scanner.close();
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// System.out.println(Fibonacci(10));
 		// sumOfPrimeNumber();
-		distanceOfprimeNumber();
+		// distanceOfprimeNumber();
+		FamousMusicComposer();
 
 	}
 
