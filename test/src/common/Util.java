@@ -70,4 +70,15 @@ public class Util {
 		}	
 	}
 	
+	/**
+	 * 输出一维数组
+	 * 
+	 */
+	public static void print1DArrary(int intArray[]) {
+		for (int k = 0; k < intArray.length; k++) {
+			System.out.print(intArray[k] + " ");
+		}
+		System.out.println("");
+	}
+	
 }

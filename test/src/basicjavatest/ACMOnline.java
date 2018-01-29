@@ -3,7 +3,7 @@ package basicjavatest;
 import java.util.Scanner;
 
 import common.Util;
-import sort.MySort;
+
 
 /**
  * @author 张大爷
@@ -12,7 +12,7 @@ import sort.MySort;
  * @description
  */
 public class ACMOnline {
-
+	
 	/**
 	 * 
 	 * ASCII码排序
@@ -324,7 +324,8 @@ public class ACMOnline {
 	/**
 	 * 蛇形填数
 	 * 
-	 * 在n*n方陈里填入1,2,...,n*n,要求填成蛇形。例如n=4时方陈为： 10 11 12 1 9 16 13 2 8 15 14 3 7 6 5 4
+	 * 在n*n方陈里填入1,2,...,n*n,要求填成蛇形。
+	 * 下下下下->左左左->上上上->右右
 	 * 
 	 **/
 	public static void snakeFill() {
@@ -337,11 +338,34 @@ public class ACMOnline {
 		}
 		int row = 0;
 		int col = n - 1;
-		int count = 0;
-		while (intArray[row][col] == 0 && row < n) {
-			intArray[++row][col] = count++;
-			System.out.println(count);
+		int count = 1;
+		while (count < n * n) {
+			while (row < n && intArray[row][col] == 0) {
+				intArray[row][col] = count;
+				row++;
+				count++;
+			}
+			row--;
+			while (col > 0 && intArray[row][col - 1] == 0) {
+				intArray[row][col - 1] = count;
+				col--;
+				count++;
+			}
+			row--;
+			while (row >= 0 && intArray[row][col] == 0) {
+				intArray[row][col] = count;
+				row--;
+				count++;
+			}
+			row++;
+			while (col < n - 1 && intArray[row][col + 1] == 0) {
+				intArray[row][col + 1] = count;
+				col++;
+				count++;
+			}
+			row++;
 		}
+
 		Util.print2DArrary(intArray);
 
 	}
