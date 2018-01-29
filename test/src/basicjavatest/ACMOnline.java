@@ -2,7 +2,8 @@ package basicjavatest;
 
 import java.util.Scanner;
 
-import common.InputUtil;
+import common.Util;
+import sort.MySort;
 
 /**
  * @author 张大爷
@@ -123,7 +124,7 @@ public class ACMOnline {
 	 */
 	public static void sumOfPrimeNumber() {
 		System.out.print("请输入（0<N<1000）的数，以输入任意字符结束：");
-		int intArray[] = InputUtil.getIntArray();
+		int intArray[] = Util.getIntArray();
 		int intArraySum = 0;
 		for (int i = 0; i < intArray.length; i++) {// 求出数组中所有的数字的和
 			intArraySum += intArray[i];
@@ -292,7 +293,7 @@ public class ACMOnline {
 					}
 					System.out.println("Case : " + Case);
 					break;
-				}else {
+				} else {
 					System.out.println("Case : UNIQUE");
 					break;
 				}
@@ -301,12 +302,58 @@ public class ACMOnline {
 		scanner.close();
 	}
 
+	/**
+	 * 求最值
+	 * 
+	 * 输入只有一组测试数据，在整数中取最小数和最大数的程序 用冒泡排序法排序后，输出第一个和最后一个数
+	 **/
+	public static void valueOfMinMax() {
+		System.out.print("请输入（0<N<10000）的整数，以输入任意字符结束：");
+		int intArray[] = Util.getIntArray();
+		for (int i = 0; i < intArray.length - 1; i++) {
+			for (int j = 0; j < intArray.length - 1 - i; j++) {
+				if (intArray[j] > intArray[j + 1]) {
+					Util.swap(intArray, j + 1, j);
+				}
+			}
+		}
+		System.out.println("最小值为：" + intArray[0]);
+		System.out.println("最大值为：" + intArray[intArray.length - 1]);
+	}
+
+	/**
+	 * 蛇形填数
+	 * 
+	 * 在n*n方陈里填入1,2,...,n*n,要求填成蛇形。例如n=4时方陈为： 10 11 12 1 9 16 13 2 8 15 14 3 7 6 5 4
+	 * 
+	 **/
+	public static void snakeFill() {
+		int n = Util.getInt();
+		int intArray[][] = new int[n][n];
+		for (int i = 0; i < intArray.length; i++) {
+			for (int j = 0; j < intArray.length; j++) {
+				intArray[i][j] = 0;
+			}
+		}
+		int row = 0;
+		int col = n - 1;
+		int count = 0;
+		while (intArray[row][col] == 0 && row < n) {
+			intArray[++row][col] = count++;
+			System.out.println(count);
+		}
+		Util.print2DArrary(intArray);
+
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// System.out.println(Fibonacci(10));
 		// sumOfPrimeNumber();
 		// distanceOfprimeNumber();
-		FamousMusicComposer();
+		// FamousMusicComposer();
+		// valueOfMinMax();
+		snakeFill();
 
 	}
 
