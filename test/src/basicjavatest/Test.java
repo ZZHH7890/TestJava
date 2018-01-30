@@ -10,14 +10,14 @@ public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int a[] = { 1, 3, 5, 7, 9, 2, 4, 6, 8, 10 };
-		for (int i = 0; i < a.length; i++) {
-			if (a[i] == 9) {
-				break;
-			}
-			System.out.println(a[i]);
-			System.out.println("");
-		}
+		int tester = 928;
+		int a = tester/100;
+		int b = tester%100/10;
+		int c =tester%100%10;
+		System.out.println(a);
+		System.out.println(b);
+		System.out.println(c);
+		
 	}
 
 }

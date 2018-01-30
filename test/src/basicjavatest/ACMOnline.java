@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import common.Util;
 
-
 /**
  * @author 张大爷
  * @time 2018年1月26日 下午4:35:41
@@ -12,7 +11,7 @@ import common.Util;
  * @description
  */
 public class ACMOnline {
-	
+
 	/**
 	 * 
 	 * ASCII码排序
@@ -324,8 +323,7 @@ public class ACMOnline {
 	/**
 	 * 蛇形填数
 	 * 
-	 * 在n*n方陈里填入1,2,...,n*n,要求填成蛇形。
-	 * 下下下下->左左左->上上上->右右
+	 * 在n*n方陈里填入1,2,...,n*n,要求填成蛇形。 下下下下->左左左->上上上->右右
 	 * 
 	 **/
 	public static void snakeFill() {
@@ -370,6 +368,108 @@ public class ACMOnline {
 
 	}
 
+	/**
+	 * 韩信点兵
+	 * 
+	 * 已知总人数不小于10，不超过100 。 输入3个非负整数a,b,c ，表示每种队形排尾的人数（a<3,b<5,c<7）。例如,输入：2 4 5
+	 * 
+	 * 输出总人数的最小值（或报告无解，即输出No answer）。实例，输出：89
+	 **/
+	public static void pointSoldier() {
+		System.out.println("请输入3个测试整数，以任意字符结束：");
+		int intArray[] = Util.getIntArray();
+		int sum = 0;
+		int a = intArray[0];
+		int b = intArray[1];
+		int c = intArray[2];
+		for (int k = 0; 7 * k <= 100; k++) {
+			for (int j = 0; 5 * j <= 100; j++) {
+				if ((5 * j + b) == (7 * k + c)) {
+					for (int i = 0; 3 * i <= 100; i++) {
+						if ((3 * i + a) == (5 * j + b)) {
+							sum = 3 * i + a;
+						}
+					}
+				}
+			}
+		}
+		if (sum != 0) {
+			System.out.println(sum);
+		} else {
+			System.out.println("No answer");
+		}
+	}
+
+	/**
+	 * 水仙花数
+	 * 
+	 * 水仙花数定义各个位数立方和等于它本身的三位数
+	 * 
+	 * 输出总人数的最小值（或报告无解，即输出No answer）。实例，输出：89
+	 **/
+	public static void NarcissisticNumber() {
+		System.out.println("请输入N个测试数据，以任意字符结束：");
+		int intArray[] = Util.getIntArray();
+		int unitsDigit = 0;
+		int tensDigit = 0;
+		int hundredsDigit = 0;
+		for (int i = 0; i < intArray.length; i++) {
+			hundredsDigit = intArray[i] / 100;
+			tensDigit = intArray[i] % 100 / 10;
+			unitsDigit = intArray[i] % 100 % 10;
+			if (intArray[i] == hundredsDigit * hundredsDigit * hundredsDigit + tensDigit * tensDigit * tensDigit
+					+ unitsDigit * unitsDigit * unitsDigit) {
+				System.out.println(intArray[i] + "YES");
+			} else {
+				System.out.println(intArray[i] + "NO");
+			}
+		}
+	}
+
+	/**
+	 * 最大公约数和最小公倍数
+	 * 
+	 * 给出两个正整数，求出它们的最大公约数和最小公倍数。
+	 * 
+	 * 最小公倍数=两数的乘积/最大公约（因）数
+	 * 
+	 **/
+	
+	public static void greatestCommonDivisor() {
+		System.out.println("请输入两个正整数，以任意字母结束！！");
+		int intArray[] = Util.getIntArray();
+		int min = 0;
+		int max = 0;
+		if (intArray[0] > intArray[1]) {
+			max = intArray[0];
+			min = intArray[1];
+		} else {
+			max = intArray[1];
+			min = intArray[0];
+		}
+		int i = 0;
+		for (i = min; i > 1; i--) {// 取小的数进行从大到小求余，如果有则输出，然后退出循环
+			if (min % i == 0 && max % i == 0) {
+				System.out.println("最大公约数为：" + i);
+				break;
+			}
+		}
+		if (i != 0) {
+			System.out.println("最小公倍数为：" + intArray[0] * intArray[1] / i);
+		}
+	}
+	
+	/**
+	 * 阶乘因式分解（一）
+	 * 
+	 * 给定两个数m,n,其中m是一个素数。将n（0<=n<=10000）的阶乘分解质因数，求其中有多少个m。
+	 * 
+	 **/
+	public static void name() {
+		
+	}
+	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// System.out.println(Fibonacci(10));
@@ -377,7 +477,10 @@ public class ACMOnline {
 		// distanceOfprimeNumber();
 		// FamousMusicComposer();
 		// valueOfMinMax();
-		snakeFill();
+		// snakeFill();
+		// pointSoldier();
+		// NarcissisticNumber();
+		greatestCommonDivisor();
 
 	}
 

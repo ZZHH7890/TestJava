@@ -18,6 +18,7 @@ public class Util {
 	 * 
 	 */
 	public static int[] getIntArray() {
+		
 		Scanner scanner = new Scanner(System.in);
 		List<Integer> elements = new LinkedList<Integer>();
 		while (scanner.hasNextInt()) {
