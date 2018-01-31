@@ -522,15 +522,31 @@ public class ACMOnline {
 		int hundredsDigit = n % 1000 / 100;
 		int tensDigit = n % 1000 % 100 / 10;
 		int unitsDigit = n % 1000 % 100 % 10;
-		int a = 0;
-		
-		
+		int intArray[] = {thousandsDigit, hundredsDigit, tensDigit, unitsDigit };
+		Util.downSort(intArray);
+		int a = 1000*intArray[0]+100*intArray[1]+10*intArray[2]+intArray[3];
+		return a;
+	}
+	
+	/**
+	 * 将一个四位数的所以数字从小到大排序，得到一个新的四位数
+	 * 
+	 **/
+	public static int sort4DigitNumberFromSmallToBig(int n) {
+		int thousandsDigit = n / 1000;
+		int hundredsDigit = n % 1000 / 100;
+		int tensDigit = n % 1000 % 100 / 10;
+		int unitsDigit = n % 1000 % 100 % 10;
+		int intArray[] = {thousandsDigit, hundredsDigit, tensDigit, unitsDigit };
+		Util.upSort(intArray);
+		int a = 1000*intArray[0]+100*intArray[1]+10*intArray[2]+intArray[3];
 		return a;
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		sort4DigitNumberFromBigToSmall(1234);
+		sort4DigitNumberFromBigToSmall(5678);
+		sort4DigitNumberFromSmallToBig(4321);
 
 	}
 
