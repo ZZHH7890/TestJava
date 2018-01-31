@@ -49,7 +49,7 @@ public class Util {
 	 * 
 	 */
 	public static int getInt() {
-		System.out.println("请输入一个测试整数：");
+		
 		Scanner scanner = new Scanner(System.in);
 		int n=0;
 		if(scanner.hasNextInt()) {

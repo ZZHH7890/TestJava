@@ -1,5 +1,8 @@
 package basicjavatest;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import common.Util;
@@ -434,7 +437,7 @@ public class ACMOnline {
 	 * 最小公倍数=两数的乘积/最大公约（因）数
 	 * 
 	 **/
-	
+
 	public static void greatestCommonDivisor() {
 		System.out.println("请输入两个正整数，以任意字母结束！！");
 		int intArray[] = Util.getIntArray();
@@ -458,29 +461,76 @@ public class ACMOnline {
 			System.out.println("最小公倍数为：" + intArray[0] * intArray[1] / i);
 		}
 	}
-	
+
 	/**
-	 * 阶乘因式分解（一）
+	 * 阶乘
 	 * 
-	 * 给定两个数m,n,其中m是一个素数。将n（0<=n<=10000）的阶乘分解质因数，求其中有多少个m。
+	 * 一个正整数的阶乘（factorial）是所有小于及等于该数的正整数的积，并且0的阶乘为1。自然数n的阶乘写作n!
+	 **/
+	public static int factorial(int n) {
+		int factorial = 1;
+		if (n < 19) {
+			for (int i = 1; i <= n; i++) {
+				factorial *= i;
+			}
+			System.out.println(n + "! = " + factorial);
+		} else {
+			System.out.println("n太大了，这个程序只支持int类型的最大值");
+		}
+		return factorial;
+		/*
+		 * DecimalFormat df = new DecimalFormat();// 16位整数位，两小数位 String temp =
+		 * df.format(factorial); System.out.println(n + "! = " +temp);
+		 */
+	}
+
+	/**
+	 * 分解质因数
+	 * 
+	 * 分解质因数只针对合数。（分解质因数也称分解素因数）求一个数分解质因数，要从最小的质数除起，一直除到结果为质数为止。分解质因数的算式叫短除法
 	 * 
 	 **/
-	public static void name() {
-		
+	public static void factoring(int n) {
+		int temp = n;
+		int flag = 0;// 标志位，用来判断输入的数是否为合数
+		List<Integer> list = new ArrayList<Integer>();
+		for (int i = 2; i <= temp; i++) { // 注意最后求余本身(=temp)
+			if (temp % i == 0) {
+				System.out.println(temp + "," + i);
+				list.add(i);
+				temp = temp / i;
+				flag++;// 标志位
+				i--;// 如果有则下一个数继续对当前i求余
+			}
+		}
+		if (flag == 0) {
+			System.out.print("你输入的不是合数！！");
+		} else {
+			System.out.print(n + "的分解质因数为：");
+			for (int i = 0; i < list.size(); i++) {
+				System.out.print(list.get(i) + " ");
+			}
+		}
 	}
-	
+
+	/**
+	 * 将一个四位数的所以数字从大到小排序，得到一个新的四位数
+	 * 
+	 **/
+	public static int sort4DigitNumberFromBigToSmall(int n) {
+		int thousandsDigit = n / 1000;
+		int hundredsDigit = n % 1000 / 100;
+		int tensDigit = n % 1000 % 100 / 10;
+		int unitsDigit = n % 1000 % 100 % 10;
+		int a = 0;
+		
+		
+		return a;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// System.out.println(Fibonacci(10));
-		// sumOfPrimeNumber();
-		// distanceOfprimeNumber();
-		// FamousMusicComposer();
-		// valueOfMinMax();
-		// snakeFill();
-		// pointSoldier();
-		// NarcissisticNumber();
-		greatestCommonDivisor();
+		sort4DigitNumberFromBigToSmall(1234);
 
 	}
 
