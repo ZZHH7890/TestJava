@@ -518,35 +518,182 @@ public class ACMOnline {
 	 * 
 	 **/
 	public static int sort4DigitNumberFromBigToSmall(int n) {
-		int thousandsDigit = n / 1000;
-		int hundredsDigit = n % 1000 / 100;
-		int tensDigit = n % 1000 % 100 / 10;
-		int unitsDigit = n % 1000 % 100 % 10;
-		int intArray[] = {thousandsDigit, hundredsDigit, tensDigit, unitsDigit };
+		int intArray[] = new int[4];
+		for (int i = 0; i < intArray.length; i++) {
+			intArray[i] = n % 10;
+			n = n / 10;
+		}
 		Util.downSort(intArray);
-		int a = 1000*intArray[0]+100*intArray[1]+10*intArray[2]+intArray[3];
+		int a = 1000 * intArray[0] + 100 * intArray[1] + 10 * intArray[2] + intArray[3];
 		return a;
 	}
-	
+
 	/**
 	 * 将一个四位数的所以数字从小到大排序，得到一个新的四位数
 	 * 
 	 **/
 	public static int sort4DigitNumberFromSmallToBig(int n) {
-		int thousandsDigit = n / 1000;
-		int hundredsDigit = n % 1000 / 100;
-		int tensDigit = n % 1000 % 100 / 10;
-		int unitsDigit = n % 1000 % 100 % 10;
-		int intArray[] = {thousandsDigit, hundredsDigit, tensDigit, unitsDigit };
+		int intArray[] = new int[4];
+		for (int i = 0; i < intArray.length; i++) {
+			intArray[i] = n % 10;
+			n = n / 10;
+		}
 		Util.upSort(intArray);
-		int a = 1000*intArray[0]+100*intArray[1]+10*intArray[2]+intArray[3];
+		int a = 1000 * intArray[0] + 100 * intArray[1] + 10 * intArray[2] + intArray[3];
 		return a;
+	}
+
+	/**
+	 * 6174问题
+	 * 
+	 * 假设你有一个各位数字互不相同的四位数，把所有的数字从大到小排序后得到a,从小到大后得到b,然后用a-b替换原来这个数，并且继续操作。
+	 * 
+	 * 例如，从1234出发，依次可以得到4321-1234=3087、8730-378=8352、8532-2358=6174，又回到了它自己！现在要你写一个程序来判断一个四位数经过多少次这样的操作能出现循环，并且求出操作的次数
+	 * 
+	 **/
+	public static void issue6174() {
+		System.out.println("请输入一个各位数字互不相同的四位数：");
+		int n = Util.getInt();
+		if (!Util.sameNumberInDigit(n)) {// 判断四位数字中是否有相同数字
+			int result = n;
+			int flag = 0;
+			int a = 0;
+			int b = 0;
+			while (result != 6174) {
+				a = sort4DigitNumberFromBigToSmall(result);
+				b = sort4DigitNumberFromSmallToBig(result);
+				result = a - b;
+				System.out.println(result);
+				flag++;
+			}
+			System.out.println("次数为：" + flag);
+		} else {
+			System.out.println("四位数中有相同数字！！");
+		}
+	}
+
+	/**
+	 * 谁获得了最高奖学金
+	 * 
+	 * 某校的惯例是在每学期的期末考试之后发放奖学金。发放的奖学金共有五种，获取的条件各自不同：
+	 * 1)院士奖学金，每人8000元，期末平均成绩高于80分（>80），并且在本学期内发表1篇或1篇以上论文的学生均可获得；
+	 * 2)五四奖学金，每人4000元，期末平均成绩高于85分（>85），并且班级评议成绩高于80分（>80）的学生均可获得；
+	 * 3)成绩优秀奖，每人2000元，期末平均成绩高于90分（>90）的学生均可获得；
+	 * 4)西部奖学金，每人1000元，期末平均成绩高于85分（>85）的西部省份学生均可获得；
+	 * 5)班级贡献奖，每人850元，班级评议成绩高于80分（>80）的学生干部均可获得；
+	 * 只要符合条件就可以得奖，每项奖学金的获奖人数没有限制，每名学生也可以同时获得多项奖学金。例如姚林的期末平均成绩是87分，班级评议成绩82分，同时他还是一位学生干部，那么他可以同时获得五四奖学金和班级贡献奖，奖金总数是4850元。
+	 * 现在给出若干学生的相关数据，请计算哪些同学获得的奖金总数最高（假设总有同学能满足获得奖学金的条件）。
+	 * 
+	 * 输入
+	 * 
+	 * 第一行输入数据N，表示学生的总数。接下来的X行每行是一位学生的数据，从左向右依次是姓名，期末平均成绩，班级评议成绩，
+	 * 是否是学生干部，是否是西部省份学生，以及发表的论文数。姓名是由大小写英文字母组成的长度不超过20的字符串（不含空格）；
+	 * 期末平均成绩和班级评议成绩都是0到100之间的整数（包括0和100）；
+	 * 是否是学生干部和是否是西部省份学生分别用一个字符表示，Y表示是，N表示不是；发表的论文数是0到10的整数（包括0和10）。每两个相邻数据项之间用一个空格分隔。
+	 * 
+	 * 输出
+	 * 
+	 * 每组测试数据输出包括三行，第一行是获得最多奖金的学生的姓名，第二行是这名学生获得的奖金总数。
+	 * 如果有两位或两位以上的学生获得的奖金最多，输出他们之中在输入文件中出现最早的学生的姓名。第三行是这X个学生获得的奖学金的总数。
+	 * 
+	 * 姓名 期末平均成绩 论文数 班级评议成绩 西部省份学生（Y or N） 学生干部（Y or N）
+	 * 
+	 * 半成品：输入学生数，输入学生信息， 思路：将学生信息放入list, 使用split将每个学生信息放入字符串数组
+	 * 
+	 **/
+	public static void topScholarship() {
+		System.out.println("请输入N个学生数：");
+		Scanner scanner1 = new Scanner(System.in);
+		int studentNum = 0;
+		if (scanner1.hasNextInt()) {
+			studentNum = scanner1.nextInt();
+		}
+		System.out.println("请输入学生信息（姓名 期末平均成绩 论文数 班级评议成绩 西部省份学生（Y or N） 学生干部（Y or N））：");
+		Scanner scanner2 = new Scanner(System.in);
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < studentNum; i++) {
+			String e = scanner2.nextLine();
+			list.add(e);
+		}
+		int intArray[] = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			String stringArray[] = list.get(i).split(" ");
+			int sum = 0;
+			if (Integer.valueOf(stringArray[1]) > 80 && Integer.valueOf(stringArray[2]) > 0) {
+				sum += 8000;
+			}
+			if (Integer.valueOf(stringArray[1]) > 85 && Integer.valueOf(stringArray[3]) > 80) {
+				sum += 4000;
+			}
+			if (Integer.valueOf(stringArray[1]) > 90) {
+				sum += 2000;
+			}
+			if (Integer.valueOf(stringArray[1]) > 85 && stringArray[4].equalsIgnoreCase("Y")) {
+				sum += 1000;
+			}
+			if (Integer.valueOf(stringArray[3]) > 80 && stringArray[5].equalsIgnoreCase("Y")) {
+				sum += 850;
+			}
+			intArray[i] = sum;
+			System.out.println(stringArray[0] + " " + sum);
+		}
+		Util.downSort(intArray);
+		System.out.println("获得奖学金最多的是" + intArray[0]);
+		scanner1.close();
+		scanner2.close();
+	}
+
+	/**
+	 * 笨小熊
+	 * 
+	 * 假设maxn是单词中出现次数最多的字母的出现次数，minn是单词中出现次数最少的字母的出现次数，如果maxn-minn是一个质数，那么笨小熊就认为这是个Lucky
+	 * Word，这样的单词很可能就是正确的答案。
+	 * 
+	 * 输入
+	 * 
+	 * 第一行数据N(0<N<100)表示测试数据组数。 每组测试数据输入只有一行，是一个单词，其中只可能出现小写字母，并且长度小于100。
+	 * 
+	 * 输出
+	 * 
+	 * 每组测试数据输出共两行，第一行是一个字符串，假设输入的的单词是Lucky Word，那么输出“Lucky Word”，否则输出“No Answer”；
+	 * 第二行是一个整数，如果输入单词是Lucky Word，输出maxn-minn的值，否则输出0
+	 * 
+	 **/
+	public static void stupidBear() {
+		System.out.println("请输入单词个数：");
+		int n = Util.getInt();
+		System.out.println("请输入单词：");
+		List<String> list = Util.getListString(n);
+		for (int i = 0; i < n; i++) {
+			int count = 0;
+			boolean flag = false;
+			String string = list.get(i);
+			char ch[] = string.toCharArray();
+			char temp[] = new char[ch.length];
+			for (int j = 0; j < ch.length - 1; j++) {
+				for(int l =0; l< temp.length;l++) {
+					if(temp[l]==ch[j]) {
+						flag = true;
+						break;
+					}
+				}
+				if(flag) {
+					continue;
+				}
+				for (int k = j + 1; k < ch.length; k++) {
+					if(ch[j]==ch[k]) {
+						count++;
+					}
+				}
+				temp[j] =ch[j];
+			}
+		}
+
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		sort4DigitNumberFromBigToSmall(5678);
-		sort4DigitNumberFromSmallToBig(4321);
+		topScholarship();
 
 	}
 

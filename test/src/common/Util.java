@@ -1,5 +1,6 @@
 package common;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,6 @@ public class Util {
 	 * 
 	 */
 	public static int[] getIntArray() {
-
 		Scanner scanner = new Scanner(System.in);
 		List<Integer> elements = new LinkedList<Integer>();
 		while (scanner.hasNextInt()) {
@@ -32,6 +32,21 @@ public class Util {
 		}
 		scanner.close();
 		return intArray;
+	}
+
+	/**
+	 * 接收控制台循环输入字符串，返回list
+	 * 
+	 */
+	public static List<String> getListString(int n) {
+		Scanner scanner1 = new Scanner(System.in);
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < n; i++) {
+			String e = scanner1.nextLine();
+			list.add(e);
+		}
+		scanner1.close();
+		return list;
 	}
 
 	/**
@@ -49,13 +64,11 @@ public class Util {
 	 * 
 	 */
 	public static int getInt() {
-
 		Scanner scanner = new Scanner(System.in);
 		int n = 0;
 		if (scanner.hasNextInt()) {
 			n = scanner.nextInt();
 		}
-		scanner.close();
 		return n;
 	}
 
@@ -113,6 +126,45 @@ public class Util {
 			}
 
 		}
+	}
+
+	/**
+	 * 判断一个数组是否有想等的数字
+	 * 
+	 */
+	public static boolean sameNumberInArray(int intArray[]) {
+		boolean flag = false;
+		for (int i = 0; i < intArray.length - 1; i++) {
+			for (int j = i + 1; j < intArray.length; j++) {
+				if (intArray[i] == intArray[j]) {
+					flag = true;
+					break;
+				}
+			}
+		}
+		return flag;
+	}
+
+	/**
+	 * 判断一个四位数是否有想等的数字
+	 * 
+	 */
+	public static boolean sameNumberInDigit(int n) {
+		boolean flag = false;
+		int intArray[] = new int[4];
+		for (int i = 0; i < intArray.length; i++) {
+			intArray[i] = n % 10;
+			n = n / 10;
+		}
+		flag = sameNumberInArray(intArray);
+		return flag;
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		sameNumberInDigit(1224);
+
 	}
 
 }
