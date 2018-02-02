@@ -467,7 +467,7 @@ public class ACMOnline {
 	 * 
 	 * 一个正整数的阶乘（factorial）是所有小于及等于该数的正整数的积，并且0的阶乘为1。自然数n的阶乘写作n!
 	 **/
-	public static int factorial(int n) {
+	public static int factorial1(int n) {
 		int factorial = 1;
 		if (n < 19) {
 			for (int i = 1; i <= n; i++) {
@@ -482,6 +482,42 @@ public class ACMOnline {
 		 * DecimalFormat df = new DecimalFormat();// 16位整数位，两小数位 String temp =
 		 * df.format(factorial); System.out.println(n + "! = " +temp);
 		 */
+	}
+
+	/**
+	 * 另一种阶乘
+	 * 
+	 * 大家都知道阶乘这个概念，举个简单的例子：5！=1*2*3*4*5.现在我们引入一种新的阶乘概念，
+	 * 将原来的每个数相乘变为i不大于n的所有奇数相乘例如：5!!=1*3*5.现在明白现在这种阶乘的意思了吧！
+	 * 
+	 * 现在你的任务是求出1!!+2!!......+n!!的正确值(n<=20)
+	 **/
+	public static void factorial2() {
+		System.out.println("请输一个整数n(n<=20)：");
+		int n = Util.getInt();
+		long sum = 0;
+		if (n <= 20 && n > 0) {
+			if (n == 1 || n == 2) {
+				sum = n;
+			} else {
+				for (int i = 1; i <= n; i++) {
+					long factorial = 1;
+					for (int j = 1; j <= i; j++) {
+						if (j % 2 != 0) {
+							System.out.println(i + " " + j);
+							factorial *= j;
+						}
+					}
+					System.out.println(i + "!! = " + factorial);
+					sum += factorial;
+				}
+			}
+		} else {
+			System.out.println("n太大了，这个程序只支持int类型的最大值");
+		}
+		if (sum != 0) {
+			System.out.println("1!!+2!!......+n!! = " + sum);
+		}
 	}
 
 	/**
@@ -554,7 +590,7 @@ public class ACMOnline {
 	public static void issue6174() {
 		System.out.println("请输入一个各位数字互不相同的四位数：");
 		int n = Util.getInt();
-		if (!Util.sameNumberInDigit(n)) {// 判断四位数字中是否有相同数字
+		if (!Util.judgeSameNumberInDigit(n)) {// 判断四位数字中是否有相同数字
 			int result = n;
 			int flag = 0;
 			int a = 0;
@@ -664,36 +700,84 @@ public class ACMOnline {
 		int n = Util.getInt();
 		System.out.println("请输入单词：");
 		List<String> list = Util.getListString(n);
-		for (int i = 0; i < n; i++) {
-			int count = 0;
-			boolean flag = false;
+		for (int i = 0; i < list.size(); i++) {
 			String string = list.get(i);
-			char ch[] = string.toCharArray();
-			char temp[] = new char[ch.length];
-			for (int j = 0; j < ch.length - 1; j++) {
-				for(int l =0; l< temp.length;l++) {
-					if(temp[l]==ch[j]) {
-						flag = true;
-						break;
-					}
-				}
-				if(flag) {
-					continue;
-				}
-				for (int k = j + 1; k < ch.length; k++) {
-					if(ch[j]==ch[k]) {
-						count++;
-					}
-				}
-				temp[j] =ch[j];
+			int maxn = Util.getMaxValue(Util.charCountMap(string));
+			int minn = Util.getMinValue(Util.charCountMap(string));
+			int m = maxn - minn;
+			if (Util.judgePrimeNumber(m)) {
+				System.out.println(string + " " + m + " Lucky Word");
+			} else {
+				System.out.println(string + " " + m + " No Answer");
 			}
 		}
+	}
 
+	/**
+	 * 鸡兔同笼
+	 * 
+	 * 已知鸡和兔的总数量为n,总腿数为m。输入n和m,依次输出鸡和兔的数目，如果无解，则输出“No answer”(不要引号)。
+	 **/
+	public static void chickenAndRabbit() {
+		System.out.println("请输入测试总共有几组测试数据：");
+		int a = Util.getInt();
+		System.out.println("鸡和兔的总数量和总腿数：");
+		List<String> list = Util.getListString(a);
+
+		for (int i = 0; i < list.size(); i++) {
+			boolean flag = false;
+			String stringArray[] = list.get(i).split(" ");
+			int n = Integer.valueOf(stringArray[0]);
+			int m = Integer.valueOf(stringArray[1]);
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k++) {
+					if (4 * j + 2 * k == m && j + k == n) {
+						flag = true;// 设置标志位，false的话证明没有答案
+						System.out.println("鸡兔数量分别为:" + k + " " + j);
+					}
+				}
+			}
+			if (!flag) {
+				System.out.println("第" + (i + 1) + "组测试数据为：" + "No answer");
+			}
+		}
+	}
+
+	/**
+	 * Financial Management
+	 * 
+	 * 需要double,DecimalFormat类使用结果需要保留两位小数
+	 * 
+	 **/
+	public static void financialManagement() {
+		Scanner scanner = new Scanner(System.in);
+		Double sum = 0.0;
+		for (int i = 0; i < 12; i++) {
+			if (scanner.hasNextDouble()) {
+				sum += scanner.nextDouble();
+			}
+		}
+		Double averag = sum / 12;
+		DecimalFormat dfDecimalFormat = new DecimalFormat(".00");
+		System.out.println(dfDecimalFormat.format(averag));
+		scanner.close();
+	}
+
+	/**
+	 * 小学生算术
+	 * 
+	 * 很多小学生在学习加法时，发现“进位”特别容易出错。你的任务是计算两个三位数在相加时需要多少次进位。
+	 * 你编制的程序应当可以连续处理多组数据，直到读到两个0（这是输入结束标记）。
+	 * 
+	 * 输入两个正整数m,n.(m,n,都是三位数)。 输出m,n,相加时需要进位多少次。
+	 **/
+	public static void numCarryCount() {
+		
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		topScholarship();
+		financialManagement();
 
 	}
 
