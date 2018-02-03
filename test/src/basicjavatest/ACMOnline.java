@@ -770,14 +770,46 @@ public class ACMOnline {
 	 * 你编制的程序应当可以连续处理多组数据，直到读到两个0（这是输入结束标记）。
 	 * 
 	 * 输入两个正整数m,n.(m,n,都是三位数)。 输出m,n,相加时需要进位多少次。
+	 * 
+	 * 
 	 **/
 	public static void numCarryCount() {
-		
+		System.out.println("请输入测试数据(m,n,都是三位数),以0 0结束:");
+		List<String> list = new ArrayList<String>();
+		Scanner scanner = new Scanner(System.in);
+		while (scanner.hasNextLine()) {
+			String eString = scanner.nextLine();
+			if (eString.equalsIgnoreCase("0 0")) {// 字符串的比较用==的含义是引用比较
+				break;
+			} else {
+				list.add(eString);
+			}
+		}
+		for (int i = 0; i < list.size(); i++) {
+			String stringArray[] = list.get(i).split(" ");
+			int mArray[] = Util.separateNumber(stringArray[0]);// 将第一个数字进行各个位数分离
+			int nArray[] = Util.separateNumber(stringArray[1]);// 将第二个数字进行各个位数分离
+			int count = 0;
+			for (int j = 0; j < mArray.length - 1; j++) {
+				if (mArray[j] + nArray[j] >= 10) {
+					count++;
+					if (mArray[j + 1] + nArray[j + 1] == 9) {// 判断下一位相加是否等于9
+						count++;
+					}
+				}
+			}
+			if (mArray[mArray.length - 1] + nArray[mArray.length - 1] >= 10) {// 判断最高位是否进位
+				count++;
+			}
+			System.out.println(list.get(i) + " 相加需要进位次数为：" + count);
+		}
+
+		scanner.close();
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		financialManagement();
+		numCarryCount();
 
 	}
 
