@@ -75,7 +75,6 @@ public class Util {
 		if (scanner.hasNextInt()) {
 			n = scanner.nextInt();
 		}
-
 		return n;
 	}
 
@@ -131,6 +130,37 @@ public class Util {
 				}
 			}
 		}
+	}
+
+	/**
+	 * 判断是否为质数（素数）
+	 * 
+	 */
+	public static boolean judgePrimeNumber(int n) {
+		boolean flag = false;
+		for (int i = n; i > 1; i--) {
+			if (n % i == 0) {
+				flag = true;
+				break;
+			}
+		}
+		return flag;
+	}
+
+	/**
+	 * 判断是否为奇数
+	 * 
+	 */
+	public static boolean judgeEvenNumber(int n) {
+		boolean flag = false;
+		if (n == 1) {
+			flag = true;
+		} else {
+			if (n % 2 != 0) {
+				flag = true;
+			}
+		}
+		return flag;
 	}
 
 	/**
@@ -276,20 +306,8 @@ public class Util {
 		return (int) object[object.length - 1];
 	}
 
-	public static boolean judgePrimeNumber(int n) {
-		boolean flag = false;
-		for (int i = n; i > 1; i--) {
-			if (n % i == 0) {
-				flag = true;
-				break;
-			}
-		}
-		return flag;
-	}
-
 	/**
-	 * 将数字的各个位数分离，返回数组
-	 * 数组存储顺序为个十百千万
+	 * 将数字的各个位数分离，返回数组 数组存储顺序为个十百千万
 	 */
 	public static int[] separateNumber(String string) {
 		int intArray[] = new int[string.length()];
@@ -304,7 +322,7 @@ public class Util {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		separateNumber("65321");
-		
+
 	}
 
 }

@@ -803,13 +803,154 @@ public class ACMOnline {
 			}
 			System.out.println(list.get(i) + " 相加需要进位次数为：" + count);
 		}
-
 		scanner.close();
 	}
 
+	/**
+	 * 日期计算
+	 * 
+	 * 输入一个日期，格式如：2010 10 24 ，判断这一天是这一年中的第几天。
+	 * 
+	 * 第一行输入一个数N（0<N<=100）,表示有N组测试数据。后面的N行输入多组输入数据，每行的输入数据都是一个按题目要求格式输入的日期。
+	 * 
+	 * 每组输入数据的输出占一行，输出判断出的天数n
+	 * 
+	 * （1-12月分别为31天，?天，31天，30天，31天，30天，31天，31天，30天，31天，30天，31天）
+	 **/
+	public static void calculateDate() {
+		System.out.println("请输入有多少组测试数据");
+		int n = Util.getInt();
+		List<String> list = Util.getListString(n);
+		for (int i = 0; i < list.size(); i++) {
+			String string[] = list.get(i).split(" ");
+			int year = Integer.valueOf(string[0]);
+			int month = Integer.valueOf(string[1]);
+			int day = Integer.valueOf(string[2]);
+			int count = 0;
+			int total = 0;
+			if (month > 1) {
+				count += 31;
+			}
+			if (month > 2) {
+				if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+					count += 29;
+				} else {
+					count += 28;
+				}
+			}
+			if (month > 3) {
+				count += 31;
+			}
+			if (month > 4) {
+				count += 30;
+			}
+			if (month > 5) {
+				count += 31;
+			}
+			if (month > 6) {
+				count += 30;
+			}
+			if (month > 7) {
+				count += 31;
+			}
+			if (month > 8) {
+				count += 31;
+			}
+			if (month > 9) {
+				count += 30;
+			}
+			if (month > 10) {
+				count += 31;
+			}
+			if (month > 11) {
+				count += 30;
+			}
+			total = count + day;
+			System.out.println(list.get(i) + " 是" + string[0] + "年的第" + total + "天");
+		}
+	}
+
+	/**
+	 * 开灯问题
+	 * 
+	 * 有n盏灯，编号为1~n，第1个人把所有灯打开，第2个人按下所有编号为2 的倍数的开关（这些灯将被关掉），第3
+	 * 个人按下所有编号为3的倍数的开关（其中关掉的灯将被打开，开着的灯将被关闭），依此类推。一共有k个人，
+	 * 问最后有哪些灯开着？输入：n和k，输出开着的灯编号。k≤n≤1000
+	 * 
+	 * 输入一组数据：n和k
+	 * 
+	 * 输出开着的灯编号
+	 * 
+	 * 奇数是关，偶数是开
+	 **/
+	public static void turnOnTheLight() {
+		System.out.println("请输入k和n(k≤n≤1000)");
+		int n = Util.getInt();
+		int k = Util.getInt();
+		if (k <= n) {
+			for (int i = 1; i <= n; i++) {
+				int flag = 0;// 标志位，奇数是关灯，偶数是开灯
+				for (int j = 2; j <= k; j++) {
+					if (i % j == 0) {
+						flag++;
+					}
+				}
+				if (flag == 0 || !Util.judgeEvenNumber(flag)) {
+					System.out.print(i + " ");
+				}
+			}
+		} else {
+			System.out.println("你输入的测试数据不正确！");
+		}
+	}
+
+	/**
+	 * cigarettes
+	 * 
+	 * Tom has many cigarettes. We hypothesized that he has n cigarettes and smokes
+	 * them one by one keeping all the butts. Out of k > 1 butts he can roll a new
+	 * cigarette. Now，do you know how many cigarettes can Tom has?
+	 * 
+	 * First input is a single line,it's n and stands for there are n testdata.then
+	 * there are n lines ,each line contains two integer numbers giving the values
+	 * of n and k.
+	 * 
+	 * For each line of input, output one integer number on a separate line giving
+	 * the maximum number of cigarettes that Peter can have.
+	 * 
+	 * 
+	 **/
+	public static void cigarettes() {
+		System.out.println("请输入测试总共有几组测试数据：");
+		int a = Util.getInt();
+		System.out.println("请输入烟和烟头数：");
+		List<String> list = Util.getListString(a);
+		for (int i = 0; i < list.size(); i++) {
+			String string[] = list.get(i).split(" ");
+			int n = Integer.valueOf(string[0]);
+			int k = Integer.valueOf(string[1]);
+			int cigarettes = n;
+			int butts = k;
+			while (butts >= k) {
+				int temp = cigarettes % k;//记录不够做成烟的烟头总数
+				cigarettes /= k;
+				n += cigarettes;
+				butts = cigarettes + temp;//做成烟后记录剩下的烟头总数
+			}
+			System.out.println("The maximum number of cigarettes is: " + n);
+		}
+	}
+
+
+	
+
+
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		numCarryCount();
+
+
+		cigarettes();
 
 	}
 
