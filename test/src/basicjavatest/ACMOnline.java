@@ -14,6 +14,48 @@ import common.Util;
  * @description
  */
 public class ACMOnline {
+	/**
+	 *
+	 * 兄弟郊游问题
+	 *
+	 * 兄弟俩骑车郊游，弟弟先出发，每分钟X米，M分钟后，哥哥带一条狗出发。以每分钟Y米的速度去追弟弟，
+	 * 而狗则以每分钟Z米的速度向弟弟跑去，追上弟弟后又立即返回，直到哥哥追上弟弟时，狗跑了多少米？
+	 * 
+	 * 第一行输入一个整数N，表示测试数据的组数(N<100) 每组测试数据占一行，是四个正整数，分别为M,X,Y,Z（数据保证X<Y<Z)
+	 * 
+	 * 输出狗跑的路径，结果保留小数点后两位。
+	 */
+	public static void brotherOuting() {
+		
+	}
+	
+
+	/**
+	 *
+	 * n-1位数
+	 *
+	 * 第一行为M，表示测试数据组数。接下来M行，每行包含一个测试数据。
+	 * 输出M行，每行为对应行的n-1位数（忽略前缀0）。如果除了最高位外，其余位都为0，则输出0。
+	 *
+	 */
+	public static void printNextNum() {
+		System.out.print("请输入数字n，代表多少组测试数据：");
+		int n = Util.getInt();
+		System.out.print("请输入n组测试数据，每个整数大于等于2位数：");
+		List<String> list = Util.getListString(n);
+		for (int i = 0; i < list.size(); i++) {
+			String string = list.get(i);
+			String subString = string.substring(1, string.length());// 使用字符串截取
+			char ch[] = subString.toCharArray();
+			if (ch[0] == '0' && ch[1] != '0') {
+				System.out.println(subString.substring(1, subString.length()));
+			} else if (ch[0] == '0' && ch[1] == '0' && ch[2] == '0') {
+				System.out.println("0");
+			} else {
+				System.out.println(subString);
+			}
+		}
+	}
 
 	/**
 	 * 
@@ -28,7 +70,6 @@ public class ACMOnline {
 		Scanner scanner = new Scanner(System.in);
 		String string[] = null;
 		int size = 0;
-
 		System.out.print("请输入数字，代表多少组测试字符串：");
 		if (scanner.hasNextInt()) {
 			size = scanner.nextInt();
@@ -932,26 +973,13 @@ public class ACMOnline {
 			int cigarettes = n;
 			int butts = k;
 			while (butts >= k) {
-				int temp = cigarettes % k;//记录不够做成烟的烟头总数
+				int temp = cigarettes % k;// 记录不够做成烟的烟头总数
 				cigarettes /= k;
 				n += cigarettes;
-				butts = cigarettes + temp;//做成烟后记录剩下的烟头总数
+				butts = cigarettes + temp;// 做成烟后记录剩下的烟头总数
 			}
 			System.out.println("The maximum number of cigarettes is: " + n);
 		}
-	}
-
-
-	
-
-
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-
-		cigarettes();
-
 	}
 
 }
