@@ -16,6 +16,76 @@ import common.Util;
 public class ACMOnline {
 	/**
 	 *
+	 * 1的个数
+	 *
+	 * 小南刚学了二进制，他想知道一个数的二进制表示中有多少个1，你能帮他写一个程序来完成这个任务吗？
+	 * 
+	 * 第一行输入一个整数N，表示测试数据的组数(1<N<1000) 每组测试数据只有一行，是一个整数M(0=<M<=10000)
+	 * 
+	 * 每组测试输出占一行，输出M的二进制表示中1的个数
+	 * 
+	 * 这道题好难啊，难度居然才是1，百度了但是还是不知道思路是什么~~好神奇的除法
+	 */
+	public static void oneNumberInBinary() {
+		int n = Util.getInt();
+		List<String> list = Util.getListString(n);
+		for (int i = 0; i < list.size(); i++) {
+			int num = Integer.valueOf(list.get(i));
+			List<String> listTemp = new ArrayList<String>();
+			while (num != 0) {
+				if (num % 2 == 0) {
+					listTemp.add("0");//能除以2的就置为0位
+				} else {
+					listTemp.add("1");
+				}
+				num /= 2;
+			}
+			int count = 0;
+			for (int j = listTemp.size() - 1; j >= 0; j--) {
+				System.out.print(listTemp.get(j));
+				if (listTemp.get(j).equals("1")) {
+					count++;
+				}
+			}
+			System.out.println(" 1的个数为：" + count);
+		}
+	}
+
+	/**
+	 *
+	 * 成绩转换
+	 *
+	 * 输入一个百分制的成绩M，将其转换成对应的等级，具体转换规则如下： 90~100为A; 80~89为B; 70~79为C; 60~69为D; 0~59为E;
+	 * 
+	 * 第一行是一个整数N，表示测试数据的组数(N<10) 每组测试数据占一行，由一个整数M组成(0<=M<=100)。
+	 * 
+	 * 对于每组输入数据，输出一行。
+	 */
+	public static void printScore() {
+		System.out.println("请输入整数N，代表N组测试数据：");
+		int n = Util.getInt();
+		System.out.println("请输入N个成绩：");
+		List<String> list = Util.getListString(n);
+		for (int i = 0; i < list.size(); i++) {
+			int score = Integer.valueOf(list.get(i));
+			if (score >= 90 && score <= 100) {
+				System.out.println("A");
+			} else if (score >= 80 && score <= 89) {
+				System.out.println("B");
+			} else if (score >= 70 && score <= 79) {
+				System.out.println("C");
+			} else if (score >= 60 && score <= 69) {
+				System.out.println("D");
+			} else if (score >= 0 && score <= 59) {
+				System.out.println("E");
+			} else {
+				System.out.println("你的成绩不是地球的算法，请回火星去！！");
+			}
+		}
+	}
+
+	/**
+	 *
 	 * 兄弟郊游问题
 	 *
 	 * 兄弟俩骑车郊游，弟弟先出发，每分钟X米，M分钟后，哥哥带一条狗出发。以每分钟Y米的速度去追弟弟，
@@ -24,11 +94,17 @@ public class ACMOnline {
 	 * 第一行输入一个整数N，表示测试数据的组数(N<100) 每组测试数据占一行，是四个正整数，分别为M,X,Y,Z（数据保证X<Y<Z)
 	 * 
 	 * 输出狗跑的路径，结果保留小数点后两位。
+	 * 
+	 * 思路：1. 弟弟走的路程==哥哥走的路程 2. 狗狗追到弟弟的路程 ==弟弟的路程
+	 * 
 	 */
-	public static void brotherOuting() {
-		
+	public static void brotherOuting(int M, int X, int Y, int Z) {
+		double t1 = X * M / (Z - X);
+		double t2 = (X * M + (X - Y) * t1) / (Y - X);
+		double dogResult = Z * (t1 + t2);
+		DecimalFormat decimalFormat = new DecimalFormat(".00");
+		System.out.println(decimalFormat.format(dogResult));
 	}
-	
 
 	/**
 	 *
