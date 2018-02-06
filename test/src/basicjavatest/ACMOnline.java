@@ -16,6 +16,60 @@ import common.Util;
 public class ACMOnline {
 	/**
 	 *
+	 * 分数加减法
+	 *
+	 * 实现两个分数的加减法
+	 * 
+	 * 输入包含多行数据 每行数据是一个字符串，格式是"a/boc/d"。 其中a, b, c, d是一个0-9的整数。o是运算符"+"或者"-"。
+	 * 数据以EOF结束 输入数据保证合法
+	 * 
+	 * 对于输入数据的每一行输出两个分数的运算结果。 注意结果应符合书写习惯，没有多余的符号、分子、分母，并且化简至最简分数
+	 * 
+	 */
+	public static void denominatorNumerator() {
+		System.out.println("请输入测试数据, 以输入\"EOF\"结束");
+		Scanner scanner = new Scanner(System.in);
+		List<String> list = new ArrayList<String>();
+		while (scanner.hasNextLine()) {
+			String string = scanner.nextLine();
+			if (string.equalsIgnoreCase("EOF")) {
+				break;
+			} else {
+				list.add(string);
+			}
+
+		}
+
+	}
+
+	/**
+	 *
+	 * 两点距离
+	 *
+	 * 输入两点坐标（X1,Y1）,（X2,Y2）(0<=x1,x2,y1,y2<=1000),计算并输出两点间的距离
+	 * 
+	 */
+	public static void distance() {
+		System.out.println("请输入整数N，代表N组测试数据：");
+		int n = Util.getInt();
+		System.out.println("请输入N组测试数据：（X1 Y1 X2 Y2）");
+		List<String> list = Util.getListString(n);
+		for (int i = 0; i < list.size(); i++) {
+			String string[] = list.get(i).split(" ");
+			int X1 = Integer.valueOf(string[0]);
+			int Y1 = Integer.valueOf(string[1]);
+			int X2 = Integer.valueOf(string[2]);
+			int Y2 = Integer.valueOf(string[3]);
+			int X = X2 - X1;
+			int Y = Y2 - Y1;
+			double dist = Math.sqrt(X * X + Y * Y);
+			DecimalFormat decimalFormat = new DecimalFormat(".00");
+			System.out.println(decimalFormat.format(dist));
+		}
+	}
+
+	/**
+	 *
 	 * 1的个数
 	 *
 	 * 小南刚学了二进制，他想知道一个数的二进制表示中有多少个1，你能帮他写一个程序来完成这个任务吗？
@@ -34,7 +88,7 @@ public class ACMOnline {
 			List<String> listTemp = new ArrayList<String>();
 			while (num != 0) {
 				if (num % 2 == 0) {
-					listTemp.add("0");//能除以2的就置为0位
+					listTemp.add("0");// 能除以2的就置为0位
 				} else {
 					listTemp.add("1");
 				}
