@@ -19,6 +19,37 @@ import javax.crypto.Mac;
  */
 
 public class Util {
+	/**
+	 * 求n个数的和
+	 * 
+	 */
+	public static int getNSum(int n) {
+		int sum = 0;
+		for (int i = 1; i <= n; i++) {
+			sum += i;
+		}
+		return sum;
+	}
+
+	/**
+	 * 接收控制台循环输入字符串，以"EOF"结束，返回list
+	 * 
+	 */
+	public static List<String> getListString() {
+		System.out.println("输入测试字符串，以输入EOF结束");
+		Scanner scanner = new Scanner(System.in);
+		List<String> list = new ArrayList<String>();
+		while (scanner.hasNextLine()) {
+			String string = scanner.nextLine();
+			if (string.equalsIgnoreCase("EOF")) {
+				break;
+			} else {
+				list.add(string);
+			}
+		}
+		scanner.close();
+		return list;
+	}
 
 	/**
 	 * 接收控制台循环输入数字，返回数组
@@ -41,10 +72,10 @@ public class Util {
 	}
 
 	/**
-	 * 接收控制台循环输入字符串，返回list
+	 * 接收控制台指定测试组数，循环输入字符串，返回list
 	 * 
 	 */
-	public static List<String> getListString(int n) {
+	public static List<String> getNListString(int n) {
 		Scanner scanner1 = new Scanner(System.in);
 		List<String> list = new ArrayList<String>();
 		for (int i = 0; i < n; i++) {

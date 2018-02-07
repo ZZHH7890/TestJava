@@ -16,6 +16,85 @@ import common.Util;
 public class ACMOnline {
 	/**
 	 *
+	 * 盗梦空间
+	 *
+	 * 《盗梦空间》是一部精彩的影片，在这部电影里，Cobb等人可以进入梦境之中，梦境里的时间会比现实中的时间过得快得多，这里假设现实中的3分钟，在梦里就是1小时。
+	 * 
+	 * 然而，Cobb他们利用强效镇静剂，可以从第一层梦境进入第二层梦境，甚至进入三层，四层梦境，每层梦境都会产生同样的时间加速效果。那么现在给你Cobb在各层梦境中经历的时间，你能算出现实世界过了多长时间吗？
+	 * 
+	 * 比如，Cobb先在第一层梦境待了1个小时，又在第二层梦境里待了1天，之后，返回第一层梦境之后立刻返回了现实。
+	 * 
+	 * 那么在现实世界里，其实过了396秒（6.6分钟）
+	 * 
+	 * W(n) = SUM[k = 1…n; k * T(k + 1)]
+	 * 
+	 * 难点是看懂这个公式
+	 * 
+	 */
+
+	/**
+	 *
+	 * Triangular Sums
+	 *
+	 * T(n) = 1 + … + n
+	 * 
+	 * W(n) = SUM[k = 1…n; k * T(k + 1)]
+	 * 
+	 * 难点是看懂这个公式
+	 * 
+	 */
+	public static void triangularSums() {
+		System.out.println("请输入整数N，代表N组测试数据：");
+		int a = Util.getInt();
+		System.out.println("请输入N组测试数据：");
+		List<String> list = Util.getNListString(a);
+		for (int i = 0; i < list.size(); i++) {
+			int sum = 0;
+			int T = 0;
+			int n = Integer.valueOf(list.get(i));
+			for (int j = 1; j <= n; j++) {
+				T = Util.getNSum(j + 1);// 每一个单独的T求出
+				sum += j * T;
+			}
+			System.out.println((i + 1) + " " + n + " " + sum);
+		}
+	}
+
+	/**
+	 *
+	 * 字符串替换
+	 *
+	 * 编写一个程序实现将字符串中的所有"you"替换成"we"
+	 * 
+	 * 输入包含多行数据,每行数据是一个字符串，长度不超过1000 数据以EOF结束
+	 * 
+	 * 对于输入的每一行，输出替换后的字符串
+	 */
+	public static void replaceString() {
+		List<String> list = Util.getListString();
+		for (int i = 0; i < list.size(); i++) {
+			char ch[] = list.get(i).toCharArray();
+			for (int j = 0; j < ch.length - 2; j++) {
+				if (ch[j] == 'y' && ch[j + 1] == 'o' && ch[j + 2] == 'u') {
+					ch[j] = 'w';
+					ch[j + 1] = 'e';
+					for (int k = j + 2; k <= ch.length - 2; k++) {// 如果中间有you,则后面的字符往前移动
+						ch[k] = ch[k + 1];
+						ch[k + 1] = ' ';
+					}
+					if (ch[ch.length - 1] == 'u') {// 判断最后一位，如果为you,则去掉u
+						ch[ch.length - 1] = ' ';
+					}
+				}
+			}
+			for (char c : ch) {
+				System.out.print(c);
+			}
+		}
+	}
+
+	/**
+	 *
 	 * 分数加减法
 	 *
 	 * 实现两个分数的加减法
@@ -25,21 +104,61 @@ public class ACMOnline {
 	 * 
 	 * 对于输入数据的每一行输出两个分数的运算结果。 注意结果应符合书写习惯，没有多余的符号、分子、分母，并且化简至最简分数
 	 * 
+	 * 这道题不是难，是有点麻烦, 容易漏掉一些情况
 	 */
 	public static void denominatorNumerator() {
 		System.out.println("请输入测试数据, 以输入\"EOF\"结束");
-		Scanner scanner = new Scanner(System.in);
-		List<String> list = new ArrayList<String>();
-		while (scanner.hasNextLine()) {
-			String string = scanner.nextLine();
-			if (string.equalsIgnoreCase("EOF")) {
-				break;
-			} else {
-				list.add(string);
+		List<String> list = Util.getListString();
+		for (int i = 0; i < list.size(); i++) {
+			String string = list.get(i);
+			char ch[] = string.toCharArray();
+			int a = Integer.valueOf(String.valueOf(ch[0]));
+			int b = Integer.valueOf(String.valueOf(ch[2]));
+			int c = Integer.valueOf(String.valueOf(ch[4]));
+			int d = Integer.valueOf(String.valueOf(ch[6]));
+			int numerator = 0;
+			int denominator = 0;
+			if (b != d) {// 分母不相等的情况
+				denominator = b * d;
+				a = a * d;
+				c = c * b;
+				if (ch[3] == '+') {
+					numerator = a + c;
+				} else {
+					numerator = a - c;
+				}
+			} else {// 分母相等的情况
+				denominator = b;
+				if (ch[3] == '+') {
+					numerator = a + c;
+				} else {
+					numerator = a - c;
+				}
 			}
-
+			int temp = Math.abs(numerator); // 取绝对值
+			if (temp <= denominator) {
+				for (int j = temp; j > 1; j--) {// 判断分子分母最大公约数，然后简化分数格式
+					if (denominator % j == 0) {
+						numerator /= j;
+						denominator /= j;
+						break;
+					}
+				}
+			} else {
+				for (int j = denominator; j > 1; j--) {
+					if (numerator % j == 0) {
+						numerator /= j;
+						denominator /= j;
+						break;
+					}
+				}
+			}
+			if (numerator == 0 || denominator == 1) { // 分子等于0和分母等于1的情况
+				System.out.println(numerator);
+			} else {
+				System.out.println(numerator + "/" + denominator);
+			}
 		}
-
 	}
 
 	/**
@@ -48,12 +167,14 @@ public class ACMOnline {
 	 *
 	 * 输入两点坐标（X1,Y1）,（X2,Y2）(0<=x1,x2,y1,y2<=1000),计算并输出两点间的距离
 	 * 
+	 * 两个点的坐标相减，然后勾股定理
+	 * 
 	 */
 	public static void distance() {
 		System.out.println("请输入整数N，代表N组测试数据：");
 		int n = Util.getInt();
 		System.out.println("请输入N组测试数据：（X1 Y1 X2 Y2）");
-		List<String> list = Util.getListString(n);
+		List<String> list = Util.getNListString(n);
 		for (int i = 0; i < list.size(); i++) {
 			String string[] = list.get(i).split(" ");
 			int X1 = Integer.valueOf(string[0]);
@@ -82,7 +203,7 @@ public class ACMOnline {
 	 */
 	public static void oneNumberInBinary() {
 		int n = Util.getInt();
-		List<String> list = Util.getListString(n);
+		List<String> list = Util.getNListString(n);
 		for (int i = 0; i < list.size(); i++) {
 			int num = Integer.valueOf(list.get(i));
 			List<String> listTemp = new ArrayList<String>();
@@ -119,7 +240,7 @@ public class ACMOnline {
 		System.out.println("请输入整数N，代表N组测试数据：");
 		int n = Util.getInt();
 		System.out.println("请输入N个成绩：");
-		List<String> list = Util.getListString(n);
+		List<String> list = Util.getNListString(n);
 		for (int i = 0; i < list.size(); i++) {
 			int score = Integer.valueOf(list.get(i));
 			if (score >= 90 && score <= 100) {
@@ -172,7 +293,7 @@ public class ACMOnline {
 		System.out.print("请输入数字n，代表多少组测试数据：");
 		int n = Util.getInt();
 		System.out.print("请输入n组测试数据，每个整数大于等于2位数：");
-		List<String> list = Util.getListString(n);
+		List<String> list = Util.getNListString(n);
 		for (int i = 0; i < list.size(); i++) {
 			String string = list.get(i);
 			String subString = string.substring(1, string.length());// 使用字符串截取
@@ -870,7 +991,7 @@ public class ACMOnline {
 		System.out.println("请输入单词个数：");
 		int n = Util.getInt();
 		System.out.println("请输入单词：");
-		List<String> list = Util.getListString(n);
+		List<String> list = Util.getNListString(n);
 		for (int i = 0; i < list.size(); i++) {
 			String string = list.get(i);
 			int maxn = Util.getMaxValue(Util.charCountMap(string));
@@ -893,7 +1014,7 @@ public class ACMOnline {
 		System.out.println("请输入测试总共有几组测试数据：");
 		int a = Util.getInt();
 		System.out.println("鸡和兔的总数量和总腿数：");
-		List<String> list = Util.getListString(a);
+		List<String> list = Util.getNListString(a);
 
 		for (int i = 0; i < list.size(); i++) {
 			boolean flag = false;
@@ -991,7 +1112,7 @@ public class ACMOnline {
 	public static void calculateDate() {
 		System.out.println("请输入有多少组测试数据");
 		int n = Util.getInt();
-		List<String> list = Util.getListString(n);
+		List<String> list = Util.getNListString(n);
 		for (int i = 0; i < list.size(); i++) {
 			String string[] = list.get(i).split(" ");
 			int year = Integer.valueOf(string[0]);
@@ -1095,7 +1216,7 @@ public class ACMOnline {
 		System.out.println("请输入测试总共有几组测试数据：");
 		int a = Util.getInt();
 		System.out.println("请输入烟和烟头数：");
-		List<String> list = Util.getListString(a);
+		List<String> list = Util.getNListString(a);
 		for (int i = 0; i < list.size(); i++) {
 			String string[] = list.get(i).split(" ");
 			int n = Integer.valueOf(string[0]);
