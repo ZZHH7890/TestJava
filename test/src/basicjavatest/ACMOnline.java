@@ -26,11 +26,30 @@ public class ACMOnline {
 	 * 
 	 * 那么在现实世界里，其实过了396秒（6.6分钟）
 	 * 
-	 * W(n) = SUM[k = 1…n; k * T(k + 1)]
 	 * 
-	 * 难点是看懂这个公式
+	 * 第一行输入一个整数T（0<=T<=100)，表示测试数据的组数。 每组测试数据的第一行是一个数字M(3<=M<=100)
+	 * 随后的M行每行的开头是一个字符串，该字符串如果是"IN"
+	 * 则Cobb向更深层的梦境出发了，如果是字符串"OUT"则表示Cobb从深层的梦回到了上一层。如果是首字符串是"STAY"则表示Cobb在该层梦境中停留了一段时间，本行随后将是一个整数S表示在该层停留了S分钟（1<=S<=10000000)。数据保证在现实世界中，时间过了整数秒。
 	 * 
+	 * 对于每组测试数据，输出现实世界过的时间（以秒为单位）。
+	 * 
+	 * 简化输入，直接输入每层的时间: 30 1440 50000
 	 */
+	public static void dreamSpace() {
+		System.out.println("请输入整数N，代表N组测试数据：");
+		int n = Util.getInt();
+		System.out.println("请输入N组测试数据, 每行格式为60 1440 1440：");
+		List<String> list = Util.getNListString(n);
+		for (int i = 0; i < list.size(); i++) {
+			String string[] = list.get(i).split(" ");
+			double upperTime = Integer.valueOf(string[string.length - 1]);
+			for (int j = string.length - 1; j > 0; j--) {
+				upperTime = Integer.valueOf(string[j - 1]) + upperTime / 20; // 从最后一层开始循环，
+			}
+			double actualTime = upperTime / 20;
+			System.out.println(actualTime);
+		}
+	}
 
 	/**
 	 *
