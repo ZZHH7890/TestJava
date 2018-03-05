@@ -127,7 +127,6 @@ public class MySort {
 				}
 				printArray(intArray);
 			}
-
 		}
 	}
 

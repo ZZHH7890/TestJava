@@ -95,12 +95,11 @@ public class BasicTest {
 			for (int j = 0; j < i; j++) {
 				System.out.print(" ");
 			}
-			for (int k = 2 * row - 2 * i - 2; k > 0; k--) {
+			for (int k = 2 * row - 2 * i - 1; k > 0; k--) {
 				System.out.print("*");
 			}
 			System.out.println("");
 		}
-
 	}
 
 	/**
@@ -119,6 +118,11 @@ public class BasicTest {
 			}
 			System.out.println("");
 		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		printInvertedTriangle(5);
 	}
 
 }
