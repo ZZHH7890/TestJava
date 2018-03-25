@@ -3,6 +3,7 @@ package basicjavatest;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import common.Util;
@@ -14,6 +15,31 @@ import common.Util;
  * @description
  */
 public class ACMOnline {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		calculateChar();
+	}
+
+	/**
+	 *
+	 * T字母统计
+	 *
+	 * 现在给你一个由小写字母组成字符串，要你找出字符串中出现次数最多的字母，如果出现次数最多字母有多个那么输出最小的那个。
+	 * 
+	 */
+	public static void calculateChar() {
+		System.out.println("请输入整数N，代表N组测试数据：");
+		int n = Util.getInt();
+		System.out.println("请输入N组测试数据");
+		List<String> list = Util.getNListString(n);
+		for (int i = 0; i < list.size(); i++) {
+			String string = list.get(i);
+			Map<String, Integer> map = Util.charCountMap(string);
+			System.out.println("出现最多次数为：" + Util.getMaxValue(map));
+		}
+	}
+
 	/**
 	 *
 	 * 盗梦空间
