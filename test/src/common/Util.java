@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.crypto.Mac;
 
 /**
  * @author ÕÅ´óÒ¯
@@ -168,10 +167,10 @@ public class Util {
 	 * 
 	 */
 	public static boolean judgePrimeNumber(int n) {
-		boolean flag = false;
+		boolean flag = true;
 		for (int i = n - 1; i > 1; i--) {
 			if (n % i == 0) {
-				flag = true;
+				flag = false;
 				break;
 			}
 		}
@@ -371,8 +370,7 @@ public class Util {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int intArray[] = {12,24,14,12,10,24,45,22};
-		numberCount(intArray);
+		System.out.println(judgePrimeNumber(18));
 	}
 
 }
